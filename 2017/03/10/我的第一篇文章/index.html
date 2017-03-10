@@ -15,13 +15,22 @@
     <meta name="keywords" content="forsigner,前端,设计,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
   
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="#使用Hexo+NodeJs+GitHub搭建个人博客#
+###使用前提###您的电脑已经安装了git nodejs 如果没装请移步：nodejs安装：http://www.cnblogs.com/liuzhiying/p/5863779.html
+##回归正题##先在github上创建一个空项目 （blog.github.io 不要问我为什么这么写我也不清楚）如果没有github账号的花两分钟去">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Nodejs+hexo+github搭建个人博客">
 <meta property="og:url" content="http://www.moonblog.pw/2017/03/10/我的第一篇文章/index.html">
 <meta property="og:site_name" content="Moon">
-<meta property="og:updated_time" content="2017-03-10T10:35:16.000Z">
+<meta property="og:description" content="#使用Hexo+NodeJs+GitHub搭建个人博客#
+###使用前提###您的电脑已经安装了git nodejs 如果没装请移步：nodejs安装：http://www.cnblogs.com/liuzhiying/p/5863779.html
+##回归正题##先在github上创建一个空项目 （blog.github.io 不要问我为什么这么写我也不清楚）如果没有github账号的花两分钟去">
+<meta property="og:updated_time" content="2017-03-10T10:37:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nodejs+hexo+github搭建个人博客">
+<meta name="twitter:description" content="#使用Hexo+NodeJs+GitHub搭建个人博客#
+###使用前提###您的电脑已经安装了git nodejs 如果没装请移步：nodejs安装：http://www.cnblogs.com/liuzhiying/p/5863779.html
+##回归正题##先在github上创建一个空项目 （blog.github.io 不要问我为什么这么写我也不清楚）如果没有github账号的花两分钟去">
 
   
 
@@ -223,7 +232,13 @@
 
   <div class="article-content">
     
-      
+      <p>#使用Hexo+NodeJs+GitHub搭建个人博客#</p>
+<p>###使用前提###<br>您的电脑已经安装了git nodejs 如果没装请移步：<br>nodejs安装：<a href="http://www.cnblogs.com/liuzhiying/p/5863779.html" target="_blank" rel="external">http://www.cnblogs.com/liuzhiying/p/5863779.html</a></p>
+<p>##回归正题##<br>先在github上创建一个空项目 （blog.github.io 不要问我为什么这么写我也不清楚）如果没有github账号的花两分钟去注册一个</p>
+<p>全局安装 hexo   npm install -g hexo<br>1.cd blog<br>2.npm install<br>3.hexo server 此时就可以打开 localhost:4000 如果可以访问，说明已经完成一大半了<br>4.编辑全局配置文件：_config.yml 在最下面找到deploy部分 （参考如下）<br>  deploy:<br>  type: git<br>  repo: <a href="https://github.com/LiuKangli/myblog.github.io.git" target="_blank" rel="external">https://github.com/LiuKangli/myblog.github.io.git</a><br>  branch: master</p>
+<p>  其他相关配置转：<a href="http://www.zipperary.com/2013/05/29/hexo-guide-3/" target="_blank" rel="external">http://www.zipperary.com/2013/05/29/hexo-guide-3/</a><br>5.hexo clean<br>6.hexo g<br>7.hexo d  如果碰到如下错误：<br>     <code>Deployer not found: git<br>使用如下命令<br>9.npm install hexo-deployer-git –save<br>10.hexo d</code></p>
+<p>#问题#<br>1.css样式没有加载404错误<br> 解决方法： 购买域名<br> 参考链接转：<a href="http://www.jianshu.com/p/1d427e888dda" target="_blank" rel="external">http://www.jianshu.com/p/1d427e888dda</a></p>
+
     
   </div>
 </article>
