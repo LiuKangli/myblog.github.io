@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>artTemplate使用总结 | Moon</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="forsigner,前端,设计,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="#artTemplate的使用总结#使用原生语法 导入:1template-native.js
+在HTML中定义模板，注意模板的位子，不要放到渲染区，防止模板丢失。123456789101112131415161718192021222324&amp;lt;script id=&quot;main_panel_big_sale_template&quot; type=&quot;text/html&quot;&amp;gt;    &amp;lt;% for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="artTemplate使用总结">
+<meta property="og:url" content="http://www.moonblog.pw/2017/04/02/artTemplate使用总结/index.html">
+<meta property="og:site_name" content="Moon">
+<meta property="og:description" content="#artTemplate的使用总结#使用原生语法 导入:1template-native.js
+在HTML中定义模板，注意模板的位子，不要放到渲染区，防止模板丢失。123456789101112131415161718192021222324&amp;lt;script id=&quot;main_panel_big_sale_template&quot; type=&quot;text/html&quot;&amp;gt;    &amp;lt;% for">
+<meta property="og:updated_time" content="2017-04-02T13:56:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="artTemplate使用总结">
+<meta name="twitter:description" content="#artTemplate的使用总结#使用原生语法 导入:1template-native.js
+在HTML中定义模板，注意模板的位子，不要放到渲染区，防止模板丢失。123456789101112131415161718192021222324&amp;lt;script id=&quot;main_panel_big_sale_template&quot; type=&quot;text/html&quot;&amp;gt;    &amp;lt;% for">
+
+  
+
+  
+    <link rel="icon" href="/images/1.jpeg">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#template-id-data"><span class="toc-text">template(id,data)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简洁语法"><span class="toc-text">简洁语法</span></a>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-artTemplate使用总结" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">artTemplate使用总结</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.04.02</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Moon</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.moonblog.pw/2017/04/02/artTemplate使用总结/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>#artTemplate的使用总结#<br>使用原生语法 导入:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">template-native.js</div></pre></td></tr></table></figure></p>
+<p>在HTML中定义模板，注意模板的位子，不要放到渲染区，防止模板丢失。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;script id=<span class="string">"main_panel_big_sale_template"</span> type=<span class="string">"text/html"</span>&gt;</div><div class="line">    &lt;% for (var i = 0; i &lt; products.length; i ++) &#123; %&gt;</div><div class="line">        &lt;% var product =products[i]; %&gt;</div><div class="line">        &lt;% if (i &lt; 3) &#123; %&gt;</div><div class="line">            &lt;li&gt;</div><div class="line">                &lt;img src="&lt;%=getImageUrl(product.pictographicIconList[0].image.url)%&gt;" data-imgname="&lt;%=product.pictographicIconList[0].image.url%&gt;"&gt;</div><div class="line">                &lt;div class="flash-time-box"&gt;</div><div class="line">                    &lt;span&gt;2015-02-09&lt;/span&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">                &lt;strong class="marque"&gt;&lt;%=product.name%&gt;&lt;/strong&gt;</div><div class="line">                &lt;strong class="libelle"&gt;&lt;%=product.description%&gt;&lt;/strong&gt;</div><div class="line">                &lt;div class="no-picto"&gt;</div><div class="line">                    &lt;span class="prod-tip"&gt;</div><div class="line">                        &lt;img src="img/grey.png" data-original="img/icon.png"&gt;</div><div class="line">                    &lt;/span&gt;</div><div class="line">                    &lt;span class="italic black"&gt;</div><div class="line">                        &lt;span class="cny-curr"&gt;¥&amp;nbsp;&lt;%=formatPrice(product.promoPrice,'integer')%&gt;&lt;/span&gt;&lt;span class="decimal"&gt;&lt;%=formatPrice(product.promoPrice,'decimal')%&gt;&lt;/span&gt;</div><div class="line">                    &lt;/span&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/li&gt;</div><div class="line">        &lt;% &#125; %&gt;</div><div class="line">    &lt;% &#125; %&gt;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="template-id-data"><a href="#template-id-data" class="headerlink" title="template(id,data)"></a>template(id,data)</h4><p>数据渲染到页面</p>
+<h3 id="简洁语法"><a href="#简洁语法" class="headerlink" title="简洁语法"></a>简洁语法</h3><p>使用简洁语法，导入：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">```javascript</div><div class="line">&lt;script id=&quot;main_panel_big_sale_template&quot; type=&quot;text/html&quot;&gt;</div><div class="line">   &#123;&#123;each products as product i&#125;&#125;</div><div class="line">   &#123;&#123;if i &lt; 3&#125;&#125;</div><div class="line">       &lt;li&gt;</div><div class="line">           &lt;img src=&quot;&#123;&#123;product.pictographicIconList[0].image.url | getImageUrl&#125;&#125;&quot; data-imgname=&quot;&#123;&#123;product.pictographicIconList[0].image.url&#125;&#125;&quot;&gt;</div><div class="line">           &lt;div class=&quot;flash-time-box&quot;&gt;</div><div class="line">               &lt;span&gt;2015-02-09&lt;/span&gt;</div><div class="line">           &lt;/div&gt;</div><div class="line">           &lt;strong class=&quot;marque&quot;&gt;&#123;&#123;product.name&#125;&#125;&lt;/strong&gt;</div><div class="line">           &lt;strong class=&quot;libelle&quot;&gt;&#123;&#123;product.description&#125;&#125;&lt;/strong&gt;</div><div class="line">           &lt;div class=&quot;no-picto&quot;&gt;</div><div class="line">                &lt;span class=&quot;prod-tip&quot;&gt;</div><div class="line">                    &lt;img src=&quot;img/grey.png&quot; data-original=&quot;img/icon.png&quot;&gt;</div><div class="line">                &lt;/span&gt;</div><div class="line">                &lt;span class=&quot;italic black&quot;&gt;</div><div class="line">                    &lt;span class=&quot;cny-curr&quot;&gt;¥&amp;nbsp;&#123;&#123;product.price.value | formatPrice: &apos;integer&apos;&#125;&#125;&lt;/span&gt;&lt;span class=&quot;decimal&quot;&gt;&#123;&#123;product.price.value | formatPrice: &apos;decimal&apos;&#125;&#125;&lt;/span&gt;</div><div class="line">                &lt;/span&gt;</div><div class="line">           &lt;/div&gt;</div><div class="line">       &lt;/li&gt;</div><div class="line">   &#123;&#123;/if&#125;&#125;</div><div class="line">   &#123;&#123;/each&#125;&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>渲染数据到页面，和原生语法一样<br><figure class="highlight plain"><figcaption><span>data)); ```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">### 调用外部函数  ###</div><div class="line">##### template.helper #####</div><div class="line">上面的例子中，都调动了 ``` formatPrice ```函数，要调用此函数需要通过helper方法注册：</div><div class="line">``` javascript</div><div class="line">template.helper(&apos;formatPrice&apos;, function(price, type) &#123;</div><div class="line">    if(price)&#123;</div><div class="line">        var arrayPrice = price.toString().split(&quot;.&quot;);</div><div class="line">        if(type == &apos;integer&apos;) &#123;</div><div class="line">            return arrayPrice[0]?arrayPrice[0]:&quot;0&quot;;</div><div class="line">        &#125;else if (type ==&apos;decimal&apos;) &#123;</div><div class="line">            return arrayPrice[1]?arrayPrice[1].length == 1?&quot;.&quot;+arrayPrice[1]+&quot;0&quot;:&quot;.&quot;+arrayPrice[1]:&quot;.00&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125;else&#123;</div><div class="line">        if(type == &apos;integer&apos;) &#123;</div><div class="line">            return &quot;0&quot;;</div><div class="line">        &#125;else if (type ==&apos;decimal&apos;) &#123;</div><div class="line">            return &quot;.00&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/03/10/我的第一篇文章/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://www.moonblog.pw/2017/04/02/artTemplate使用总结/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
