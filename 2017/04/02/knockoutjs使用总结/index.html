@@ -15,20 +15,20 @@
     <meta name="keywords" content="forsigner,前端,设计,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
   
 
-  <meta name="description" content="knockoutjs使用总结####1.什么是knockoutkjs？Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。
-ko重要特性">
+  <meta name="description" content="knockoutjs使用总结1.什么是knockoutkjs？Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。
+ko重要特性以及有点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="knockoutjs使用总结">
 <meta property="og:url" content="http://www.moonblog.pw/2017/04/02/knockoutjs使用总结/index.html">
 <meta property="og:site_name" content="Moon">
-<meta property="og:description" content="knockoutjs使用总结####1.什么是knockoutkjs？Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。
-ko重要特性">
+<meta property="og:description" content="knockoutjs使用总结1.什么是knockoutkjs？Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。
+ko重要特性以及有点">
 <meta property="og:image" content="http://www.itbobo.com/wp-content/uploads/2012/11/ko.png?_=3396268">
-<meta property="og:updated_time" content="2017-04-02T14:27:52.000Z">
+<meta property="og:updated_time" content="2017-04-02T14:30:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="knockoutjs使用总结">
-<meta name="twitter:description" content="knockoutjs使用总结####1.什么是knockoutkjs？Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。
-ko重要特性">
+<meta name="twitter:description" content="knockoutjs使用总结1.什么是knockoutkjs？Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。
+ko重要特性以及有点">
 <meta name="twitter:image" content="http://www.itbobo.com/wp-content/uploads/2012/11/ko.png?_=3396268">
 
   
@@ -188,7 +188,7 @@ ko重要特性">
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#knockoutjs使用总结"><span class="toc-text">knockoutjs使用总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ko重要特性以及有点"><span class="toc-text">ko重要特性以及有点</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#摘自：博客-学永不止步"><span class="toc-text">摘自：博客:学永不止步</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#knockoutjs使用总结"><span class="toc-text">knockoutjs使用总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-什么是knockoutkjs？"><span class="toc-text">1.什么是knockoutkjs？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ko重要特性以及有点"><span class="toc-text">ko重要特性以及有点</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#摘自：博客-学永不止步"><span class="toc-text">摘自：博客:学永不止步</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li></ol></li></ol></li></ol>
   </div>
 
 
@@ -236,7 +236,7 @@ ko重要特性">
 
   <div class="article-content">
     
-      <h1 id="knockoutjs使用总结"><a href="#knockoutjs使用总结" class="headerlink" title="knockoutjs使用总结"></a>knockoutjs使用总结</h1><p>####1.什么是knockoutkjs？<br>Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。<br><img src="http://www.itbobo.com/wp-content/uploads/2012/11/ko.png?_=3396268" alt="knockoutjs"></p>
+      <h1 id="knockoutjs使用总结"><a href="#knockoutjs使用总结" class="headerlink" title="knockoutjs使用总结"></a>knockoutjs使用总结</h1><h4 id="1-什么是knockoutkjs？"><a href="#1-什么是knockoutkjs？" class="headerlink" title="1.什么是knockoutkjs？"></a>1.什么是knockoutkjs？</h4><p>Knockout是一款很优秀的JavaScript库，它可以帮助你仅使用一个清晰整洁的底层数据模型（data model）即可创建一个富文本且具有良好的显示和编辑功能的用户界面。任何时候你的局部UI内容需要自动更新（比如：依赖于用户行为的改变或者外部的数据源发生变化），KO都可以很简单的帮你实现，并且非常易于维护。<br><img src="http://www.itbobo.com/wp-content/uploads/2012/11/ko.png?_=3396268" alt="knockoutjs"></p>
 <h4 id="ko重要特性以及有点"><a href="#ko重要特性以及有点" class="headerlink" title="ko重要特性以及有点"></a>ko重要特性以及有点</h4><p>1.ko重要性</p>
 <ul>
 <li>优雅的依赖跟踪-任何时候当数据源模型发生变化时，它都能够自动的更新你UI的指定内容。</li>
