@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSRF 跨站请求伪造 | Moon</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="forsigner,前端,设计,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="web安全之CSRF1.CSRF是什么？  CSRF（Cross-site request forgery），中文名叫：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
+2.CSRF可以做什么？   你可以这么理解CSRF攻击： == 攻击者盗用你的身份，以你的名义发送恶意请求 ==。CSRF能够做的事情包括：以你的名义发送邮件，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF 跨站请求伪造">
+<meta property="og:url" content="http://www.moonblog.pw/2017/04/23/CSRF-跨站请求伪造/index.html">
+<meta property="og:site_name" content="Moon">
+<meta property="og:description" content="web安全之CSRF1.CSRF是什么？  CSRF（Cross-site request forgery），中文名叫：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
+2.CSRF可以做什么？   你可以这么理解CSRF攻击： == 攻击者盗用你的身份，以你的名义发送恶意请求 ==。CSRF能够做的事情包括：以你的名义发送邮件，">
+<meta property="og:image" content="http://pic002.cnblogs.com/img/hyddd/200904/2009040916453171.jpg">
+<meta property="og:updated_time" content="2017-04-23T14:21:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSRF 跨站请求伪造">
+<meta name="twitter:description" content="web安全之CSRF1.CSRF是什么？  CSRF（Cross-site request forgery），中文名叫：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
+2.CSRF可以做什么？   你可以这么理解CSRF攻击： == 攻击者盗用你的身份，以你的名义发送恶意请求 ==。CSRF能够做的事情包括：以你的名义发送邮件，">
+<meta name="twitter:image" content="http://pic002.cnblogs.com/img/hyddd/200904/2009040916453171.jpg">
+
+  
+
+  
+    <link rel="icon" href="/images/1.jpeg">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#web安全之CSRF"><span class="toc-text">web安全之CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-CSRF是什么？"><span class="toc-text">1.CSRF是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-CSRF可以做什么？"><span class="toc-text">2.CSRF可以做什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CSRF漏洞现状"><span class="toc-text">3.CSRF漏洞现状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-CSRF的原理"><span class="toc-text">4.CSRF的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#示例1"><span class="toc-text">示例1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#示例2："><span class="toc-text">示例2：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#示例3："><span class="toc-text">示例3：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-CSRF漏洞现状"><span class="toc-text">5.CSRF漏洞现状</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1，服务端进行CSRF防御"><span class="toc-text">1，服务端进行CSRF防御</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-参考资料"><span class="toc-text">6.参考资料</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#原文链接：hyddd-http-www-cnblogs-com-hyddd-archive-2009-04-09-1432744-html-comments"><span class="toc-text">原文链接：hyddd:http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html#!comments</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-CSRF-跨站请求伪造" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">CSRF 跨站请求伪造</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.04.23</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Moon</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/安全/">安全</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.moonblog.pw/2017/04/23/CSRF-跨站请求伪造/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="web安全之CSRF"><a href="#web安全之CSRF" class="headerlink" title="web安全之CSRF"></a>web安全之CSRF</h1><h3 id="1-CSRF是什么？"><a href="#1-CSRF是什么？" class="headerlink" title="1.CSRF是什么？"></a>1.CSRF是什么？</h3><p>  CSRF（Cross-site request forgery），中文名叫：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。</p>
+<h3 id="2-CSRF可以做什么？"><a href="#2-CSRF可以做什么？" class="headerlink" title="2.CSRF可以做什么？"></a>2.CSRF可以做什么？</h3><p>   你可以这么理解CSRF攻击： == 攻击者盗用你的身份，以你的名义发送恶意请求 ==。CSRF能够做的事情包括：以你的名义发送邮件，发消息，盗用你的账号，甚至于购买商品，虚拟货币转账。。。。造成的问题包括：个人隐私泄露以及财产安全。</p>
+<h3 id="3-CSRF漏洞现状"><a href="#3-CSRF漏洞现状" class="headerlink" title="3.CSRF漏洞现状"></a>3.CSRF漏洞现状</h3><p>CSRF这种攻击方式在2000年已经被国外的安全人员提出，但在国内，直到06年才开始被关注，08年，国内外的多个大型社区和交互网站分别爆出CSRF漏洞，如：NYTimes.com（纽约时报）、Metafilter（一个大型的BLOG网站），YouTube和百度HI……而现在，互联网上的许多站点仍对此毫无防备，以至于安全业界称CSRF为“沉睡的巨人”。</p>
+<h3 id="4-CSRF的原理"><a href="#4-CSRF的原理" class="headerlink" title="4.CSRF的原理"></a>4.CSRF的原理</h3><p>下图简单阐述了CSFR攻击思想<br><img src="http://pic002.cnblogs.com/img/hyddd/200904/2009040916453171.jpg" alt="11"></p>
+<p>以上可以看出，要完成一次CSRFg’n攻击，受害者必须依次完成两个步骤：<br>  == 1.登录受信任网站A，并在本地生成Cookie<br>  2.在不登出A的情况下，访问危险网站B ==</p>
+<p>看到这里，你也许会说：“如果我不满足以上两种条件中的一个，我就不会受到CSRF的攻击”。是的，的确如此，但你不能保证一下情况不会发生：</p>
+<p> == 1.你不能保证你登录了一个网站后，不在打开一个tab页面并访问另外的网站。<br>  2.你不能保证你关闭浏览器后，你本地的Cookie立即过期，但大多数都会错误的认为关闭浏览器等于退出登录/结束会话了…）<br>  3.上图中所谓的攻击网站，可能是一个存在其他漏洞的可信任的经常被人访问的网站. ==</p>
+<p>   上面大概地讲述了一下CSRF的攻击思想，下面我将用几个例子详细说说具体的CSRF攻击，这里以一个银行转账的操作为例子：</p>
+<h5 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h5><p>   银行网站A，它以GET请求来完成银行转账的操作，如：<a href="http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000" target="_blank" rel="external">http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000</a></p>
+<p>　　危险网站B，它里面有一段HTML的代码如下：</p>
+<p>  <code>&lt;img src=http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000&gt;</code></p>
+<p>  首先，你登录了银行网站A，然后访问危险网站B，噢，这时你会发现你的银行账户少了1000块……</p>
+<p>  为什么会这样呢？原因是银行网站A违反了HTTP规范，使用GET请求更新资源。在访问危险网站B的之前，你已经登录了银行网站A，而B中的<code>&lt;img&gt;</code>以GET的方式请求第三方资源（这里的第三方就是指银行网站了，原本这是一个合法的请求，但这里被不法分子利用了），所以你的浏览器会带上你的银行网站A的Cookie发出Get请求，去获取资源“<a href="http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000”，结果银行网站服务器收到请求后，认为这是一个更新资源操作（转账操作），所以就立刻进行转账操作" target="_blank" rel="external">http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000”，结果银行网站服务器收到请求后，认为这是一个更新资源操作（转账操作），所以就立刻进行转账操作</a>……</p>
+<h5 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h5><p>为了杜绝上面的问题，银行决定改用POST请求完成转账操作。</p>
+<p>　　银行网站A的WEB表单如下：　　<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　&lt;form action=&quot;Transfer.php&quot; method=&quot;POST&quot;&gt;</div><div class="line">　　　　&lt;p&gt;ToBankId: &lt;input type=&quot;text&quot; name=&quot;toBankId&quot; /&gt;&lt;/p&gt;</div><div class="line">　　　　&lt;p&gt;Money: &lt;input type=&quot;text&quot; name=&quot;money&quot; /&gt;&lt;/p&gt;</div><div class="line">　　　　&lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Transfer&quot; /&gt;&lt;/p&gt;</div><div class="line">　　&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>后台处理页面Transfer.php如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">	　&lt;?php</div><div class="line">　　　　session_start();</div><div class="line">　　　　if (isset($_REQUEST[&apos;toBankId&apos;] &amp;&amp;　isset($_REQUEST[&apos;money&apos;]))</div><div class="line">　　　　&#123;</div><div class="line">　　　　    buy_stocks($_REQUEST[&apos;toBankId&apos;],　$_REQUEST[&apos;money&apos;]);</div><div class="line">　　　　&#125;</div><div class="line">　　?&gt;</div></pre></td></tr></table></figure></p>
+<p>危险网站B，仍然只是包含那句HTML代码：<br><code>&lt;img src=http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000&gt;</code></p>
+<p>   和示例1中的操作一样，你首先登录了银行网站A，然后访问危险网站B，结果…..和示例1一样，你再次没了1000块～T_T，这次事故的原因是：银行后台使用了$_REQUEST去获取请求的数据，而$_REQUEST既可以获取GET请求的数据，也可以获取POST请求的数据，这就造成了在后台处理程序无法区分这到底是GET请求的数据还是POST请求的数据。在PHP中，可以使用$_GET和$_POST分别获取GET请求和POST请求的数据。在JAVA中，用于获取请求数据request一样存在不能区分GET请求数据和POST数据的问题。</p>
+<h5 id="示例3："><a href="#示例3：" class="headerlink" title="示例3："></a>示例3：</h5><p>   经过前面2个惨痛的教训，银行决定把获取请求数据的方法也改了，改用$_POST，只获取POST请求的数据，后台处理页面Transfer.php代码如下：<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">　　　　session_start();</div><div class="line">　　　　if (isset($_POST[&apos;toBankId&apos;] &amp;&amp;　isset($_POST[&apos;money&apos;]))</div><div class="line">　　　　&#123;</div><div class="line">　　　　    buy_stocks($_POST[&apos;toBankId&apos;],　$_POST[&apos;money&apos;]);</div><div class="line">　　　　&#125;</div><div class="line">　　?&gt;</div></pre></td></tr></table></figure></p>
+<p>然而，危险网站B与时俱进，它改了一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">　　&lt;head&gt;</div><div class="line">　　　　&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">　　　　　　function steal()</div><div class="line">　　　　　　&#123;</div><div class="line">          　　　　 iframe = document.frames[&quot;steal&quot;];</div><div class="line">　　     　　      iframe.document.Submit(&quot;transfer&quot;);</div><div class="line">　　　　　　&#125;</div><div class="line">　　　　&lt;/script&gt;</div><div class="line">　　&lt;/head&gt;</div><div class="line"></div><div class="line">　　&lt;body onload=&quot;steal()&quot;&gt;</div><div class="line">　　　　&lt;iframe name=&quot;steal&quot; display=&quot;none&quot;&gt;</div><div class="line">　　　　　　&lt;form method=&quot;POST&quot; name=&quot;transfer&quot;　action=&quot;http://www.myBank.com/Transfer.php&quot;&gt;</div><div class="line">　　　　　　　　&lt;input type=&quot;hidden&quot; name=&quot;toBankId&quot; value=&quot;11&quot;&gt;</div><div class="line">　　　　　　　　&lt;input type=&quot;hidden&quot; name=&quot;money&quot; value=&quot;1000&quot;&gt;</div><div class="line">　　　　　　&lt;/form&gt;</div><div class="line">　　　　&lt;/iframe&gt;</div><div class="line">　　&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>如果用户仍是继续上面的操作，很不幸，结果将会是再次不见1000块……因为这里危险网站B暗地里发送了POST请求到银行!</p>
+<p>　　总结一下上面3个例子，CSRF主要的攻击模式基本上是以上的3种，其中以第1,2种最为严重，因为触发条件很简单，一个<code>&lt;img&gt;</code>就可以了，而第3种比较麻烦，需要使用JavaScript，所以使用的机会会比前面的少很多，但无论是哪种情况，只要触发了CSRF攻击，后果都有可能很严重。</p>
+<p>　　理解上面的3种攻击模式，其实可以看出，== CSRF攻击是源于WEB的隐式身份验证机制！WEB的身份验证机制虽然可以保证一个请求是来自于某个用户的浏览器，但却无法保证该请求是用户批准发送的！ ==</p>
+<h3 id="5-CSRF漏洞现状"><a href="#5-CSRF漏洞现状" class="headerlink" title="5.CSRF漏洞现状"></a>5.CSRF漏洞现状</h3><p>  CSRF的防御可以从== 服务端 ==和== 客户端 ==两方面着手，防御效果是从服务端着手效果比较好，现在一般的CSRF防御也都在服务端进行。</p>
+<h5 id="1，服务端进行CSRF防御"><a href="#1，服务端进行CSRF防御" class="headerlink" title="1，服务端进行CSRF防御"></a>1，服务端进行CSRF防御</h5><p>服务端的CSRF方式方法很多样，但总的思想都是一致的，就是在客户端页面== 增加伪随机数 ==。</p>
+<p>　　(1).Cookie Hashing(所有表单都包含同一个伪随机值)：</p>
+<p>　　这可能是最简单的解决方案了，因为攻击者不能获得第三方的Cookie(理论上)，所以表单中的数据也就构造失败了:&gt;<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">　　　　//构造加密的Cookie信息</div><div class="line">　　　　$value = “DefenseSCRF”;</div><div class="line">　　　　setcookie(”cookie”, $value, time()+3600);</div><div class="line">　　?&gt;</div></pre></td></tr></table></figure></p>
+<p>在表单里增加Hash值，以认证这确实是用户发送的请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">　　　　$hash = md5($_COOKIE[&apos;cookie&apos;]);</div><div class="line">　　?&gt;</div><div class="line">　　&lt;form method=”POST” action=”transfer.php”&gt;</div><div class="line">　　　　&lt;input type=”text” name=”toBankId”&gt;</div><div class="line">　　　　&lt;input type=”text” name=”money”&gt;</div><div class="line">　　　　&lt;input type=”hidden” name=”hash” value=”&lt;?=$hash;?&gt;”&gt;</div><div class="line">　　　　&lt;input type=”submit” name=”submit” value=”Submit”&gt;</div><div class="line">　　&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>这个方法已经可以杜绝99%的CSRF攻击了，那还有1%呢….由于用户的Cookie很容易由于网站的XSS漏洞而被盗取，这就另外的1%。一般的攻击者看到有需要算Hash值，基本都会放弃了，某些除外，所以如果需要100%的杜绝，这个不是最好的方法。<br>　　(2).验证码</p>
+<p>　　这个方案的思路是：每次的用户提交都需要用户在表单中填写一个图片上的随机字符串，厄….这个方案可以完全解决CSRF，但个人觉得在易用性方面似乎不是太好，还有听闻是验证码图片的使用涉及了一个被称为MHTML的Bug，可能在某些版本的微软IE中受影响。</p>
+<p>　　(3).One-Time Tokens(不同的表单包含一个不同的伪随机值)</p>
+<p>　　在实现One-Time Tokens时，需要注意一点：就是“并行会话的兼容”。如果用户在一个站点上同时打开了两个不同的表单，CSRF保护措施不应该影响到他对任何表单的提交。考虑一下如果每次表单被装入时站点生成一个伪随机值来覆盖以前的伪随机值将会发生什么情况：用户只能成功地提交他最后打开的表单，因为所有其他的表单都含有非法的伪随机值。必须小心操作以确保CSRF保护措施不会影响选项卡式的浏览或者利用多个浏览器窗口浏览一个站点。</p>
+<p>　　以下实现:</p>
+<p>　　1).先是令牌生成函数(gen_token())：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">   function gen_token() &#123;</div><div class="line">　　　　//这里我是贪方便，实际上单使用Rand()得出的随机数作为令牌，也是不安全的。</div><div class="line">　　　　//这个可以参考我写的Findbugs笔记中的《Random object created and used only once》</div><div class="line">        $token = md5(uniqid(rand(), true));</div><div class="line">        return $token;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>2).然后是Session令牌生成函数(gen_stoken())：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">     　　function gen_stoken() &#123;</div><div class="line">　　　　　　$pToken = &quot;&quot;;</div><div class="line">　　　　　　if($_SESSION[STOKEN_NAME]  == $pToken)&#123;</div><div class="line">　　　　　　　　//没有值，赋新值</div><div class="line">　　　　　　　　$_SESSION[STOKEN_NAME] = gen_token();</div><div class="line">　　　　　　&#125;    </div><div class="line">　　　　　　else&#123;</div><div class="line">　　　　　　　　//继续使用旧的值</div><div class="line">　　　　　　&#125;</div><div class="line">     　　&#125;</div><div class="line">     ?&gt;</div></pre></td></tr></table></figure></p>
+<p>3).WEB表单生成隐藏输入域的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">　　     function gen_input() &#123;</div><div class="line">    　　     gen_stoken();</div><div class="line">　　          echo “&lt;input type=\”hidden\” name=\”&quot; . FTOKEN_NAME . “\”</div><div class="line">         　　     value=\”&quot; . $_SESSION[STOKEN_NAME] . “\”&gt; “;</div><div class="line">    　　&#125;</div><div class="line">    ?&gt;</div></pre></td></tr></table></figure></p>
+<p>4).WEB表单结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">         session_start();</div><div class="line">         include(”functions.php”);</div><div class="line">    ?&gt;</div><div class="line">    &lt;form method=”POST” action=”transfer.php”&gt;</div><div class="line">         &lt;input type=”text” name=”toBankId”&gt;</div><div class="line">         &lt;input type=”text” name=”money”&gt;</div><div class="line">         &lt;? gen_input(); ?&gt;</div><div class="line">         &lt;input type=”submit” name=”submit” value=”Submit”&gt;</div><div class="line">    &lt;/FORM&gt;</div></pre></td></tr></table></figure></p>
+<p>5).服务端核对令牌：</p>
+<h3 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6.参考资料"></a>6.参考资料</h3><p><a href="http://shiflett.org/articles/cross-site-request-forgeries" target="_blank" rel="external">Security Corner: Cross-Site Request Forgeries</a><br><a href="http://netsecurity.51cto.com/art/200812/102951.htm" target="_blank" rel="external">《深入解析跨站请求伪造漏洞：原理剖析》</a><br><a href="http://netsecurity.51cto.com/art/200811/97281.htm" target="_blank" rel="external">《Web安全测试之跨站请求伪造（CSRF）》</a><br><a href="http://netsecurity.51cto.com/art/200812/102925.htm" target="_blank" rel="external">《深入解析跨站请求伪造漏洞：实例讲解》</a></p>
+<h6 id="原文链接：hyddd-http-www-cnblogs-com-hyddd-archive-2009-04-09-1432744-html-comments"><a href="#原文链接：hyddd-http-www-cnblogs-com-hyddd-archive-2009-04-09-1432744-html-comments" class="headerlink" title="原文链接：hyddd:http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html#!comments"></a>原文链接：<a href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html#!comments" target="_blank" rel="external">hyddd:http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html#!comments</a></h6>
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/04/16/web安全之XSS/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://www.moonblog.pw/2017/04/23/CSRF-跨站请求伪造/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
