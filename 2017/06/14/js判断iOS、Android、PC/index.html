@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>js判断iOS、Android、PC | Moon</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="forsigner,前端,设计,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="JS判断客户端是否是iOS或者Android第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端1234567&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;    var u = navigator.userAgent;    var isAndroid = u.indexOf(&amp;apos;Android&amp;apos;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js判断iOS、Android、PC">
+<meta property="og:url" content="http://www.moonblog.pw/2017/06/14/js判断iOS、Android、PC/index.html">
+<meta property="og:site_name" content="Moon">
+<meta property="og:description" content="JS判断客户端是否是iOS或者Android第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端1234567&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;    var u = navigator.userAgent;    var isAndroid = u.indexOf(&amp;apos;Android&amp;apos;)">
+<meta property="og:updated_time" content="2017-06-14T13:29:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js判断iOS、Android、PC">
+<meta name="twitter:description" content="JS判断客户端是否是iOS或者Android第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端1234567&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;    var u = navigator.userAgent;    var isAndroid = u.indexOf(&amp;apos;Android&amp;apos;)">
+
+  
+
+  
+    <link rel="icon" href="/images/1.jpeg">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JS判断客户端是否是iOS或者Android"><span class="toc-text">JS判断客户端是否是iOS或者Android</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端"><span class="toc-text">第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#第二种：检查是否是移动端（Mobile）、ipad、iphone、微信、qq等"><span class="toc-text">第二种：检查是否是移动端（Mobile）、ipad、iphone、微信、qq等</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#第三种：判断iPhone-iPad-iPod-iOS-Android客户端"><span class="toc-text">第三种：判断iPhone|iPad|iPod|iOS|Android客户端</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#第四种：判断PC还是移动端"><span class="toc-text">第四种：判断PC还是移动端</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-js判断iOS、Android、PC" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">js判断iOS、Android、PC</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.06.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Moon</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.moonblog.pw/2017/06/14/js判断iOS、Android、PC/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="JS判断客户端是否是iOS或者Android"><a href="#JS判断客户端是否是iOS或者Android" class="headerlink" title="JS判断客户端是否是iOS或者Android"></a>JS判断客户端是否是iOS或者Android</h1><h6 id="第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端"><a href="#第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端" class="headerlink" title="第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端"></a>第一种：通过判断浏览器的userAgent，用正则来判断iOS和Android客户端</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">    var u = navigator.userAgent;</div><div class="line">    var isAndroid = u.indexOf(&apos;Android&apos;) &gt; -1 || u.indexOf(&apos;Adr&apos;) &gt; -1; //android终端</div><div class="line">    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端</div><div class="line">    alert(&apos;是否是Android：&apos;+isAndroid);</div><div class="line">    alert(&apos;是否是iOS：&apos;+isiOS);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h6 id="第二种：检查是否是移动端（Mobile）、ipad、iphone、微信、qq等"><a href="#第二种：检查是否是移动端（Mobile）、ipad、iphone、微信、qq等" class="headerlink" title="第二种：检查是否是移动端（Mobile）、ipad、iphone、微信、qq等"></a>第二种：检查是否是移动端（Mobile）、ipad、iphone、微信、qq等</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">//判断访问终端</div><div class="line">var browser=&#123;</div><div class="line">    versions:function()&#123;</div><div class="line">        var u = navigator.userAgent, </div><div class="line">            app = navigator.appVersion;</div><div class="line">        return &#123;</div><div class="line">            trident: u.indexOf(&apos;Trident&apos;) &gt; -1, //IE内核</div><div class="line">            presto: u.indexOf(&apos;Presto&apos;) &gt; -1, //opera内核</div><div class="line">            webKit: u.indexOf(&apos;AppleWebKit&apos;) &gt; -1, //苹果、谷歌内核</div><div class="line">            gecko: u.indexOf(&apos;Gecko&apos;) &gt; -1 &amp;&amp; u.indexOf(&apos;KHTML&apos;) == -1,//火狐内核</div><div class="line">            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端</div><div class="line">            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端</div><div class="line">            android: u.indexOf(&apos;Android&apos;) &gt; -1 || u.indexOf(&apos;Adr&apos;) &gt; -1, //android终端</div><div class="line">            iPhone: u.indexOf(&apos;iPhone&apos;) &gt; -1 , //是否为iPhone或者QQHD浏览器</div><div class="line">            iPad: u.indexOf(&apos;iPad&apos;) &gt; -1, //是否iPad</div><div class="line">            webApp: u.indexOf(&apos;Safari&apos;) == -1, //是否web应该程序，没有头部与底部</div><div class="line">            weixin: u.indexOf(&apos;MicroMessenger&apos;) &gt; -1, //是否微信 （2015-01-22新增）</div><div class="line">            qq: u.match(/\sQQ/i) == &quot; qq&quot; //是否QQ</div><div class="line">        &#125;;</div><div class="line">    &#125;(),</div><div class="line">    language:(navigator.browserLanguage || navigator.language).toLowerCase()</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">使用方法</div><div class="line">//判断是否IE内核</div><div class="line">if(browser.versions.trident)&#123; alert(&quot;is IE&quot;); &#125;</div><div class="line">//判断是否webKit内核</div><div class="line">if(browser.versions.webKit)&#123; alert(&quot;is webKit&quot;); &#125;</div><div class="line">//判断是否移动端</div><div class="line">if(browser.versions.mobile||browser.versions.android||browser.versions.ios)&#123; alert(&quot;移动端&quot;); &#125;</div><div class="line"></div><div class="line">检测浏览器语言</div><div class="line"></div><div class="line">currentLang = navigator.language;   //判断除IE外其他浏览器使用语言</div><div class="line">if(!currentLang)&#123;//判断IE浏览器使用语言</div><div class="line">    currentLang = navigator.browserLanguage;</div><div class="line">&#125;</div><div class="line">alert(currentLang);</div></pre></td></tr></table></figure>
+<h6 id="第三种：判断iPhone-iPad-iPod-iOS-Android客户端"><a href="#第三种：判断iPhone-iPad-iPod-iOS-Android客户端" class="headerlink" title="第三种：判断iPhone|iPad|iPod|iOS|Android客户端"></a>第三种：判断iPhone|iPad|iPod|iOS|Android客户端</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) &#123;  //判断iPhone|iPad|iPod|iOS</div><div class="line">    //alert(navigator.userAgent);  </div><div class="line">    window.location.href =&quot;iPhone.html&quot;;</div><div class="line">&#125; else if (/(Android)/i.test(navigator.userAgent)) &#123;   //判断Android</div><div class="line">    //alert(navigator.userAgent); </div><div class="line">    window.location.href =&quot;Android.html&quot;;</div><div class="line">&#125; else &#123;  //pc</div><div class="line">    window.location.href =&quot;pc.html&quot;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h6 id="第四种：判断PC还是移动端"><a href="#第四种：判断PC还是移动端" class="headerlink" title="第四种：判断PC还是移动端"></a>第四种：判断PC还是移动端</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">　　//判断是否手机端访问</div><div class="line">    var userAgentInfo = navigator.userAgent.toLowerCase();</div><div class="line">    var Agents = [&quot;android&quot;, &quot;iphone&quot;,</div><div class="line">                &quot;symbianos&quot;, &quot;windows phone&quot;,</div><div class="line">                &quot;ipad&quot;, &quot;ipod&quot;];</div><div class="line">    var ly=document.referrer;  //返回导航到当前网页的超链接所在网页的URL</div><div class="line"></div><div class="line">    for (var v = 0; v &lt; Agents.length; v++) &#123;</div><div class="line">        if (userAgentInfo.indexOf(Agents[v]) &gt;= 0&amp;&amp;(ly==&quot;&quot;||ly==null)) &#123;</div><div class="line">            this.location.href=&apos;http://m.***.com&apos;;  //wap端地址</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/sese/p/5629404.html" target="_blank" rel="external">摘自：http://www.cnblogs.com/sese/p/5629404.html</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/05/24/MAC-OS-上更改XAMPP的根目录/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://www.moonblog.pw/2017/06/14/js判断iOS、Android、PC/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
